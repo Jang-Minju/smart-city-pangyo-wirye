@@ -96,3 +96,13 @@ smart_project/
 
 - GitHub Repository: https://github.com/Jang-Minju/smart-city-pangyo-wirye
 - GitHub Pages: https://jang-minju.github.io/smart-city-pangyo-wirye/
+
+### GitHub Pages 배포 시 환경변수
+
+VWorld 베이스맵을 사용하기 위해 GitHub 저장소의 Actions secrets에 다음 값을 등록해야 한다.
+
+- `VITE_VWORLD_KEY`: VWorld API key
+
+등록 위치:
+
+`Settings → Secrets and variables → Actions → New repository secret`
