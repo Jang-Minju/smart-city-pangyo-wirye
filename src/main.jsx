@@ -11,6 +11,8 @@ import {
 } from './components/DashboardMap.jsx';
 import './styles.css';
 
+const dataUrl = (path) => `${import.meta.env.BASE_URL}${String(path).replace(/^\/+/, '')}`;
+
 const tabs = [
   { id: 'landuse', label: '토지이용', eyebrow: 'Land Use', title: '토지이용 및 혼합 구조' },
   { id: 'development', label: '개발실현도', eyebrow: 'Development', title: '건축물과 업무시설 실현도' },
@@ -171,11 +173,11 @@ function useLandusePanelData(enabled) {
     async function loadData() {
       try {
         const responses = await Promise.all([
-          fetch('/data/landuse_mix_index.csv'),
-          fetch('/data/landuse_blocktype_mix_index.csv'),
-          fetch('/data/landuse_zone_composition.csv'),
-          fetch('/data/landuse_blocktype_composition.csv'),
-          fetch('/data/landuse_zone_coverage_summary.csv'),
+          fetch(dataUrl('data/landuse_mix_index.csv')),
+          fetch(dataUrl('data/landuse_blocktype_mix_index.csv')),
+          fetch(dataUrl('data/landuse_zone_composition.csv')),
+          fetch(dataUrl('data/landuse_blocktype_composition.csv')),
+          fetch(dataUrl('data/landuse_zone_coverage_summary.csv')),
         ]);
         if (responses.some((response) => !response.ok)) throw new Error('landuse panel data request failed');
         const [zoningMix, blockTypeMix, zoningComposition, blockTypeComposition, coverageSummary] = await Promise.all(
@@ -215,9 +217,9 @@ function useDevelopmentPanelData(enabled) {
     async function loadData() {
       try {
         const responses = await Promise.all([
-          fetch('/data/development_summary.csv'),
-          fetch('/data/building_use_composition.csv'),
-          fetch('/data/building_approval_timeseries.csv'),
+          fetch(dataUrl('data/development_summary.csv')),
+          fetch(dataUrl('data/building_use_composition.csv')),
+          fetch(dataUrl('data/building_approval_timeseries.csv')),
         ]);
         if (responses.some((response) => !response.ok)) throw new Error('development panel data request failed');
         const [summary, composition, approvalTimeseries] = await Promise.all(responses.map((response) => response.text()));
@@ -260,11 +262,11 @@ function useJobsPanelData(enabled) {
     async function loadData() {
       try {
         const responses = await Promise.all([
-          fetch('/data/population_business_summary.csv'),
-          fetch('/data/jobs_housing_ratio.csv'),
-          fetch('/data/industry_basic_composition.csv'),
-          fetch('/data/industry_lq.csv'),
-          fetch('/data/top_worker_lq_industries.csv'),
+          fetch(dataUrl('data/population_business_summary.csv')),
+          fetch(dataUrl('data/jobs_housing_ratio.csv')),
+          fetch(dataUrl('data/industry_basic_composition.csv')),
+          fetch(dataUrl('data/industry_lq.csv')),
+          fetch(dataUrl('data/top_worker_lq_industries.csv')),
         ]);
         if (responses.some((response) => !response.ok)) throw new Error('jobs panel data request failed');
         const [summary, jobsHousing, industryComposition, industryLq, topWorkerLq] = await Promise.all(
@@ -309,9 +311,9 @@ function useAccessibilityPanelData(enabled) {
     async function loadData() {
       try {
         const responses = await Promise.all([
-          fetch('/data/accessibility_summary.csv'),
-          fetch('/data/station_area_ratio.csv'),
-          fetch('/data/accessibility_cumulative.csv'),
+          fetch(dataUrl('data/accessibility_summary.csv')),
+          fetch(dataUrl('data/station_area_ratio.csv')),
+          fetch(dataUrl('data/accessibility_cumulative.csv')),
         ]);
         if (responses.some((response) => !response.ok)) throw new Error('accessibility panel data request failed');
         const [summary, stationAreaRatio, cumulative] = await Promise.all(responses.map((response) => response.text()));

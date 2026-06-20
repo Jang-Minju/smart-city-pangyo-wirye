@@ -6,6 +6,8 @@ import proj4 from 'proj4';
 import pangyoCandidateParcelsRaw from '../../analysis_boundaries/pangyo_1st_technovalley_candidate_parcels_5186.geojson?raw';
 import wiryeCandidateParcelsRaw from '../../analysis_boundaries/wirye_business_commercial_candidate_parcels_5186.geojson?raw';
 
+const dataUrl = (path) => `${import.meta.env.BASE_URL}${String(path).replace(/^\/+/, '')}`;
+
 export const MAP_VIEWS = {
   pangyo: {
     longitude: 127.111,
@@ -802,8 +804,8 @@ function useDashboardMapData() {
     async function load() {
       try {
         const [boundaries, stations] = await Promise.all([
-          fetchJson('/data/boundaries.geojson'),
-          fetchJson('/data/core_stations.geojson'),
+          fetchJson(dataUrl('data/boundaries.geojson')),
+          fetchJson(dataUrl('data/core_stations.geojson')),
         ]);
 
         if (!ignore) {
@@ -844,9 +846,9 @@ function useLanduseMapData(enabled) {
     async function load() {
       try {
         const [zones, blockTypes, missing] = await Promise.all([
-          fetchJson('/data/landuse_zones.geojson'),
-          fetchJson('/data/landuse_blocktype.geojson'),
-          fetchJson('/data/landuse_zones_missing.geojson'),
+          fetchJson(dataUrl('data/landuse_zones.geojson')),
+          fetchJson(dataUrl('data/landuse_blocktype.geojson')),
+          fetchJson(dataUrl('data/landuse_zones_missing.geojson')),
         ]);
 
         if (!ignore) {
@@ -885,7 +887,7 @@ function useDevelopmentMapData(enabled) {
 
     async function load() {
       try {
-        const buildings = await fetchJson('/data/buildings_or_parcels.geojson');
+        const buildings = await fetchJson(dataUrl('data/buildings_or_parcels.geojson'));
         if (!ignore) {
           setState({
             buildings: buildings?.features ? buildings : emptyFeatureCollection(),
@@ -920,7 +922,7 @@ function useJobsMapData(enabled) {
 
     async function load() {
       try {
-        const census = await fetchJson('/data/sgis_census.geojson');
+        const census = await fetchJson(dataUrl('data/sgis_census.geojson'));
         if (!ignore) {
           setState({
             census: census?.features ? census : emptyFeatureCollection(),
@@ -957,15 +959,15 @@ function useAccessibilityMapData(enabled) {
     async function load() {
       try {
         const [isochrones, stationBuffers, summaryText, stationAreaText] = await Promise.all([
-          fetchJson('/data/accessibility_isochrones.geojson'),
-          fetchJson('/data/station_buffers.geojson'),
-          fetch('/data/accessibility_summary.csv').then((response) => {
+          fetchJson(dataUrl('data/accessibility_isochrones.geojson')),
+          fetchJson(dataUrl('data/station_buffers.geojson')),
+          fetch(dataUrl('data/accessibility_summary.csv')).then((response) => {
             if (!response.ok) {
               throw new Error(`Failed to fetch accessibility summary: ${response.status}`);
             }
             return response.text();
           }),
-          fetch('/data/station_area_ratio.csv').then((response) => {
+          fetch(dataUrl('data/station_area_ratio.csv')).then((response) => {
             if (!response.ok) {
               throw new Error(`Failed to fetch station area ratio: ${response.status}`);
             }

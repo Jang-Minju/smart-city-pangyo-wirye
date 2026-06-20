@@ -4,6 +4,8 @@ import { BitmapLayer, GeoJsonLayer, PathLayer, ScatterplotLayer, TextLayer } fro
 import { TileLayer } from '@deck.gl/geo-layers';
 import proj4 from 'proj4';
 
+const dataUrl = (path) => `${import.meta.env.BASE_URL}${String(path).replace(/^\/+/, '')}`;
+
 const PANGYO_VIEW = {
   longitude: 127.111,
   latitude: 37.394,
@@ -137,8 +139,8 @@ export function BoundaryEditor() {
     async function loadReferenceLayers() {
       try {
         const [boundaryResponse, parcelResponse] = await Promise.all([
-          fetch('/data/pangyo_boundary.geojson'),
-          fetch('/data/buildings_or_parcels.geojson'),
+          fetch(dataUrl('data/pangyo_boundary.geojson')),
+          fetch(dataUrl('data/buildings_or_parcels.geojson')),
         ]);
 
         if (!boundaryResponse.ok) {
