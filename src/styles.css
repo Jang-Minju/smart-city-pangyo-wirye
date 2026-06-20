@@ -8,6 +8,12 @@
   text-rendering: optimizeLegibility;
 }
 
+html,
+body,
+#root {
+  height: 100%;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -15,9 +21,10 @@
 body {
   margin: 0;
   min-width: 1180px;
-  min-height: 100vh;
+  min-height: 100%;
   background:
     linear-gradient(180deg, #f5f7f9 0%, #e8edf1 100%);
+  overflow: hidden;
 }
 
 button,
@@ -31,11 +38,12 @@ button {
 
 .dashboard-shell {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  overflow: hidden;
 }
 
 .topbar {
@@ -134,7 +142,8 @@ button {
 
 .overview-layout,
 .workspace-layout {
-  min-height: calc(100vh - 198px);
+  flex: 1;
+  min-height: 0;
   display: grid;
   gap: 14px;
 }
@@ -145,15 +154,14 @@ button {
 
 .workspace-layout {
   grid-template-columns: 220px minmax(0, 1fr) 390px;
-  height: calc(100vh - 198px);
-  min-height: calc(100vh - 198px);
+  height: auto;
 }
 
 .side-panel,
 .analysis-panel,
 .map-workspace,
 .overview-main {
-  min-height: calc(100vh - 198px);
+  min-height: 0;
 }
 
 .workspace-layout > .side-panel,
@@ -237,6 +245,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  overflow: hidden;
 }
 
 .section-title {
@@ -287,7 +296,7 @@ button {
 
 .detail-comparison-area {
   flex: 1;
-  min-height: clamp(600px, 70vh, 790px);
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -739,6 +748,8 @@ button {
   gap: 10px;
   overflow-y: auto;
   overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
 }
 
 .panel-heading h2 {
@@ -1033,6 +1044,34 @@ button {
 .chart-card {
   position: relative;
   gap: 12px;
+}
+
+.analysis-panel[aria-label="접근성 분석 패널"] {
+  gap: 8px;
+}
+
+.analysis-panel[aria-label="접근성 분석 패널"] .development-summary-note,
+.analysis-panel[aria-label="접근성 분석 패널"] .development-interpretation,
+.analysis-panel[aria-label="접근성 분석 패널"] .placeholder-card.composition-card,
+.analysis-panel[aria-label="접근성 분석 패널"] .placeholder-card.chart-card {
+  gap: 8px;
+}
+
+.analysis-panel[aria-label="접근성 분석 패널"] .jobs-area-card {
+  padding: 10px;
+  gap: 6px;
+}
+
+.analysis-panel[aria-label="접근성 분석 패널"] .jobs-metric-row {
+  padding: 7px 9px;
+}
+
+.analysis-panel[aria-label="접근성 분석 패널"] .line-chart-svg {
+  height: 154px;
+}
+
+.analysis-panel[aria-label="접근성 분석 패널"] .chart-footnote {
+  margin: 0;
 }
 
 .chart-footnote {
