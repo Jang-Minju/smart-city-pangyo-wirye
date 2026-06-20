@@ -1,0 +1,13 @@
+﻿source_file,source_region_code,metric_type,csv_rows,boundary_rows,joined_rows,join_failed_rows,join_success_rate,join_key,note
+11_2023년_가구총괄.csv,11,household,38194,19097,38194,0,1.0,spatial_id -> TOT_OA_CD,"validated against 11 output-area boundary; CSV has no header, parsed as year/spatial_id/item_code/value"
+11_2023년_산업분류별(10차_대분류)_사업체수.csv,11,business_count,153840,19097,153840,0,1.0,spatial_id -> TOT_OA_CD,"validated against 11 output-area boundary; CSV has no header, parsed as year/spatial_id/item_code/value"
+11_2023년_산업분류별(10차_대분류)_종사자수.csv,11,worker_count,153840,19097,153840,0,1.0,spatial_id -> TOT_OA_CD,"validated against 11 output-area boundary; CSV has no header, parsed as year/spatial_id/item_code/value"
+11_2023년_인구총괄(총인구).csv,11,population,57291,19097,57291,0,1.0,spatial_id -> TOT_OA_CD,"validated against 11 output-area boundary; CSV has no header, parsed as year/spatial_id/item_code/value"
+31023_2023년_가구총괄.csv,31023,household,1852,28394,1852,0,1.0,spatial_id -> TOT_OA_CD,"validated against 31 output-area boundary; CSV has no header, parsed as year/spatial_id/item_code/value"
+31023_2023년_산업분류별(10차_대분류)_사업체수.csv,31023,business_count,6326,28394,6326,0,1.0,spatial_id -> TOT_OA_CD,"validated against 31 output-area boundary; CSV has no header, parsed as year/spatial_id/item_code/value"
+31023_2023년_산업분류별(10차_대분류)_종사자수.csv,31023,worker_count,6326,28394,6326,0,1.0,spatial_id -> TOT_OA_CD,"validated against 31 output-area boundary; CSV has no header, parsed as year/spatial_id/item_code/value"
+31023_2023년_인구총괄(총인구).csv,31023,population,2778,28394,2778,0,1.0,spatial_id -> TOT_OA_CD,"validated against 31 output-area boundary; CSV has no header, parsed as year/spatial_id/item_code/value"
+31_2023년_가구총괄.csv,31,household,56788,28394,56788,0,1.0,spatial_id -> TOT_OA_CD,"validated against 31 output-area boundary; CSV has no header, parsed as year/spatial_id/item_code/value"
+31_2023년_산업분류별(10차_대분류)_사업체수.csv,31,business_count,216573,28394,216573,0,1.0,spatial_id -> TOT_OA_CD,"validated against 31 output-area boundary; CSV has no header, parsed as year/spatial_id/item_code/value"
+31_2023년_산업분류별(10차_대분류)_종사자수.csv,31,worker_count,216573,28394,216573,0,1.0,spatial_id -> TOT_OA_CD,"validated against 31 output-area boundary; CSV has no header, parsed as year/spatial_id/item_code/value"
+31_2023년_인구총괄(총인구).csv,31,population,85182,28394,85182,0,1.0,spatial_id -> TOT_OA_CD,"validated against 31 output-area boundary; CSV has no header, parsed as year/spatial_id/item_code/value"

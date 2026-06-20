@@ -1,0 +1,76 @@
+node_modules/
+dist/
+.vite/
+.cache/
+.node-portable/
+.npm-cache/
+cache/
+
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+.DS_Store
+Thumbs.db
+
+*.log
+*.tmp
+*.bak
+
+.env
+
+# Local backup / temporary work
+archive/
+backup_before_pangyo_boundary_update/
+dashboard/
+
+# Large/raw source data
+raw_data/
+source_data/
+용도지역/
+용도지역2/
+용도지역3/
+건축물/
+인구가구/
+집계구경계/
+가구및획지/
+연속지적도/
+경기용도지역/
+서울용도지역/
+판교/
+위례/
+
+# Large GIS source formats
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.sbn
+*.sbx
+*.qix
+*.fix
+*.qml
+*.qgz
+
+# Large office/source files
+*.xlsx
+*.xls
+*.zip
+*.dwg
+
+# Temporary media
+*.mp4
+
+# Keep final deliverables
+!derived_data/**/*.geojson
+!derived_data/**/*.csv
+!derived_data/**/*.md
+!public/data/**
+!analysis_boundaries/**/*.geojson
+!analysis_boundaries/**/*.csv
+!docs/**/*.md
+!docs/**/*.png
+
+# Exclude archive subfolders even under retained trees
+public/data/archive/

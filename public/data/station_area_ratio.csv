@@ -1,0 +1,3 @@
+﻿area_name,station_name,boundary_area_sqm,boundary_area_km2,buffer_500m_intersect_area_sqm,buffer_500m_area_ratio,buffer_1km_intersect_area_sqm,buffer_1km_area_ratio,note
+pangyo_1st_technovalley,판교역,860504.8879876387,0.8605048879876387,0.0,0.0,320902.7430150735,0.3729237886905336,Station is managed as a separate point layer; boundary is not expanded. Only buffer-boundary intersection area is counted.
+wirye_plan_area,남위례역,6757873.520641949,6.757873520641949,311652.29190693755,0.0461169169495396,1342299.1066565467,0.1986274384325911,"역은 분석경계와 별도 point layer로 관리했고, 경계는 확장하지 않음. 역이 경계 밖이어도 buffer 교차면적만 계산."

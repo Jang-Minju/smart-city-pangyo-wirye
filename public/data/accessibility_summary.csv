@@ -1,0 +1,5 @@
+﻿area_name,origin_station,time_threshold_min,reachable_station_count,reachable_population,reachable_workers,allocation_method,note
+pangyo_1st_technovalley,판교역,30,91,2342410.9948645923,1917642.268741685,area_proportional_intersection,Subway-network station hull approximation; census polygons allocated by intersected area ratio.
+pangyo_1st_technovalley,판교역,60,592,16774253.978602197,8542443.835071571,area_proportional_intersection,Subway-network station hull approximation; census polygons allocated by intersected area ratio.
+wirye_plan_area,남위례역,30,114,1942910.8910919034,1481691.0685230838,area_proportional_intersection,Subway-network station hull approximation; census polygons allocated by intersected area ratio.
+wirye_plan_area,남위례역,60,542,15270097.552223373,7937442.267386641,area_proportional_intersection,Subway-network station hull approximation; census polygons allocated by intersected area ratio.

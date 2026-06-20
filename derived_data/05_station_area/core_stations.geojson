@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "core_stations",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::5186" } },
+"features": [
+{ "type": "Feature", "properties": { "area_name": "pangyo_1st_technovalley", "station_name": "판교역", "station_role": "core_station", "x": 209842.87660537046, "y": 532808.60446021776, "source_file": "network/nodes.tsv" }, "geometry": { "type": "Point", "coordinates": [ 209842.876605370460311, 532808.604460217757151 ] } },
+{ "type": "Feature", "properties": { "area_name": "wirye_plan_area", "station_name": "남위례역", "station_role": "core_station", "x": 212358.53684047298, "y": 540350.31112782704, "source_file": "network\\nodes.tsv" }, "geometry": { "type": "Point", "coordinates": [ 212358.536840472981567, 540350.311127827037126 ] } }
+]
+}

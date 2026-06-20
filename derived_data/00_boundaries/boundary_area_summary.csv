@@ -1,0 +1,3 @@
+﻿area_name,boundary_file,internal_parcels_file,parcel_count,internal_parcels_area_sqm,boundary_area_sqm,boundary_area_ha,area_difference_sqm,definition_note
+pangyo_1st_technovalley,pangyo_boundary.geojson,pangyo_internal_parcels.geojson,75,433241.41618483356,1066109.7974283544,106.61097974283544,632868.3812435209,제1판교테크노밸리 기준 이미지와 맞지 않는 동쪽/우측 돌출 업무 후보를 제외하고 핵심 업무·도시지원 구역의 외곽으로 정의
+wirye_plan_area,wirye_boundary.geojson,wirye_business_commercial_internal_parcels.geojson,72,682658.3183589932,6757873.520641949,675.7873520641949,6075215.202282956,업무·상업용지가 여러 곳에 분산되어 있으므로 업무·상업 필지를 억지로 연결하지 않고 위례 계획구역 전체 외곽을 분석경계로 정의
