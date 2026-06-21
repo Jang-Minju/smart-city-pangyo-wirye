@@ -40,7 +40,6 @@
 - 프로젝트 구축 대중교통 네트워크
 - '택지정보 자료제공' 가구 및 획지 경계도
 
-원천 데이터 대부분은 GitHub에 포함하지 않았다. 상세 목록은 [REPRODUCIBILITY.md](./REPRODUCIBILITY.md)와 [DATA_INVENTORY.md](./DATA_INVENTORY.md)를 참조하면 된다.
 
 ## 실행 방법
 
