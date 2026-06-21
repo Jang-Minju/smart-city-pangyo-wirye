@@ -142,6 +142,11 @@ const BLOCK_TYPE_COLORS = {
   '기타': [176, 184, 193, 220],
 };
 
+function applyAlpha(color, alpha) {
+  if (!Array.isArray(color) || color.length < 3) return color;
+  return [color[0], color[1], color[2], alpha];
+}
+
 const DEVELOPMENT_CANDIDATE_PARCELS = {
   pangyo: transformFeatureCollection(JSON.parse(pangyoCandidateParcelsRaw)),
   wirye: transformFeatureCollection(JSON.parse(wiryeCandidateParcelsRaw)),
@@ -303,6 +308,34 @@ function getCategoryColor(category, colorMap) {
 
 function getLanduseLineColor(color) {
   return [color[0], color[1], color[2], 225];
+}
+
+function buildLegendItemsFromCollection(collection, key, baseLegend, colorMap) {
+  const safeFeatures = Array.isArray(collection?.features) ? collection.features : [];
+  const categories = new Set(
+    safeFeatures
+      .map((feature) => String(feature?.properties?.[key] ?? '').trim())
+      .filter(Boolean),
+  );
+
+  const items = [];
+  const seen = new Set();
+
+  (Array.isArray(baseLegend) ? baseLegend : []).forEach((item) => {
+    if (!categories.has(item.label) || seen.has(item.label)) return;
+    items.push(item);
+    seen.add(item.label);
+  });
+
+  Array.from(categories)
+    .filter((category) => !seen.has(category))
+    .sort((a, b) => a.localeCompare(b, 'ko'))
+    .forEach((category) => {
+      const color = getCategoryColor(category, colorMap);
+      items.push({ label: category, color: color.slice(0, 3) });
+    });
+
+  return items;
 }
 
 const DEVELOPMENT_MAIN_USE_LABELS = DEVELOPMENT_MAIN_USE_LEGEND.map((item) => item.label);
@@ -733,6 +766,7 @@ function createLanduseLayers({ boundaries, zones, missing, blockTypes, scope, vi
   const scopedZones = filterByScope(zones, scope);
   const scopedMissing = filterByScope(missing, scope);
   const scopedBlockTypes = filterByScope(blockTypes, scope);
+  const mixedMode = Boolean(visibility.zoning && visibility.blockType);
 
   return [
     visibility.zoning &&
@@ -756,7 +790,11 @@ function createLanduseLayers({ boundaries, zones, missing, blockTypes, scope, vi
         pickable: true,
         stroked: true,
         filled: true,
-        getFillColor: (feature) => getCategoryColor(feature.properties?.landuse_category ?? '기타', LANDUSE_ZONE_COLORS),
+        getFillColor: (feature) =>
+          applyAlpha(
+            getCategoryColor(feature.properties?.landuse_category ?? '기타', LANDUSE_ZONE_COLORS),
+            mixedMode ? 78 : 160,
+          ),
         getLineColor: (feature) => getLanduseLineColor(getCategoryColor(feature.properties?.landuse_category ?? '기타', LANDUSE_ZONE_COLORS)),
         getLineWidth: 0.7,
         lineWidthUnits: 'pixels',
@@ -770,12 +808,18 @@ function createLanduseLayers({ boundaries, zones, missing, blockTypes, scope, vi
         data: scopedBlockTypes,
         pickable: true,
         stroked: true,
-        filled: false,
-        getLineColor: [88, 96, 105, 180],
-        getLineWidth: 0.8,
+        filled: true,
+        getFillColor: (feature) =>
+          applyAlpha(
+            getCategoryColor(feature.properties?.blockType ?? '기타', BLOCK_TYPE_COLORS),
+            visibility.zoning ? 122 : 170,
+          ),
+        getLineColor: (feature) =>
+          applyAlpha(getCategoryColor(feature.properties?.blockType ?? '기타', BLOCK_TYPE_COLORS), 214),
+        getLineWidth: visibility.zoning ? 0.6 : 0.8,
         lineWidthUnits: 'pixels',
         autoHighlight: true,
-        highlightColor: [255, 255, 255, 90],
+        highlightColor: [255, 255, 255, 112],
       }),
     scopedBoundaries &&
       new GeoJsonLayer({
@@ -1292,6 +1336,14 @@ export function DashboardMap({
     () => getDevelopmentLegendItems(buildings, scope),
     [buildings, scope],
   );
+  const landuseZoneLegendItems = useMemo(
+    () => buildLegendItemsFromCollection(filterByScope(zones, scope), 'landuse_category', LANDUSE_ZONE_LEGEND, LANDUSE_ZONE_COLORS),
+    [scope, zones],
+  );
+  const landuseBlockTypeLegendItems = useMemo(
+    () => buildLegendItemsFromCollection(filterByScope(blockTypes, scope), 'blockType', BLOCK_TYPE_LEGEND, BLOCK_TYPE_COLORS),
+    [blockTypes, scope],
+  );
 
   const layers = useMemo(() => {
     const baseLayer = createBaseMapLayer({ apiKey, tileFailed, setTileFailed, id: `vworld-base-map-${scope}` });
@@ -1347,6 +1399,8 @@ export function DashboardMap({
         accessibilityTimeMode={accessibilityTimeMode}
         developmentLegendItems={developmentLegendItems}
         jobsMetric={jobsMetric}
+        landuseBlockTypeLegendItems={landuseBlockTypeLegendItems}
+        landuseZoneLegendItems={landuseZoneLegendItems}
         layerVisibility={visibility}
         metricRange={jobsMetricRange}
         showDetailedLegend={showDetailedLegend}
@@ -1387,6 +1441,14 @@ export function ControlledDashboardMap({
   const developmentLegendItems = useMemo(
     () => getDevelopmentLegendItems(buildings, viewMode),
     [buildings, viewMode],
+  );
+  const landuseZoneLegendItems = useMemo(
+    () => buildLegendItemsFromCollection(filterByScope(zones, viewMode), 'landuse_category', LANDUSE_ZONE_LEGEND, LANDUSE_ZONE_COLORS),
+    [viewMode, zones],
+  );
+  const landuseBlockTypeLegendItems = useMemo(
+    () => buildLegendItemsFromCollection(filterByScope(blockTypes, viewMode), 'blockType', BLOCK_TYPE_LEGEND, BLOCK_TYPE_COLORS),
+    [blockTypes, viewMode],
   );
 
   useEffect(() => {
@@ -1447,6 +1509,8 @@ export function ControlledDashboardMap({
         accessibilityTimeMode={accessibilityTimeMode}
         developmentLegendItems={developmentLegendItems}
         jobsMetric={jobsMetric}
+        landuseBlockTypeLegendItems={landuseBlockTypeLegendItems}
+        landuseZoneLegendItems={landuseZoneLegendItems}
         layerVisibility={visibility}
         metricRange={jobsMetricRange}
         showDetailedLegend={showDetailedLegend}
@@ -1464,20 +1528,29 @@ function MapLegend({
   metricRange,
   showDetailedLegend = true,
   developmentLegendItems = DEVELOPMENT_MAIN_USE_LEGEND,
+  landuseZoneLegendItems = LANDUSE_ZONE_LEGEND,
+  landuseBlockTypeLegendItems = BLOCK_TYPE_LEGEND,
 }) {
   return (
     <div className="map-legend" aria-label="지도 범례">
       {analysisLayer === 'landuse' ? (
         <>
-          <div className="legend-row">
-            <span className="legend-swatch missing" />
-            <span>데이터 없음</span>
-          </div>
           {layerVisibility.blockType ? (
-            <div className="legend-row">
-              <span className="legend-line blocktype" />
-              <span>blockType</span>
-            </div>
+            <>
+              <LegendGroup items={landuseBlockTypeLegendItems} title="blockType" />
+              <div className="legend-row">
+                <span className="legend-swatch missing" />
+                <span>데이터 없음</span>
+              </div>
+            </>
+          ) : layerVisibility.zoning ? (
+            <>
+              <LegendGroup items={landuseZoneLegendItems} title="용도지역" />
+              <div className="legend-row">
+                <span className="legend-swatch missing" />
+                <span>데이터 없음</span>
+              </div>
+            </>
           ) : null}
         </>
       ) : null}

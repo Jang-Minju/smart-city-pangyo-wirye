@@ -934,6 +934,10 @@ function LanduseAnalysisPanel({ viewMode }) {
         <p>Land Use</p>
         <h2>토지이용 분석 패널</h2>
       </div>
+      <div className="development-summary-note">
+        용도지역 기준 LUM은 법·계획상 용도지역의 혼합도를 보여주고, blockType 기준 LUM은 가구·획지 자료의
+        세부 블록 용도 구성을 기준으로 산출한 보조 혼합도 지표입니다.
+      </div>
       {data.failed ? <div className="panel-alert">토지이용 데이터를 불러오지 못했습니다.</div> : null}
       <div className={areas.length > 1 ? 'landuse-metric-grid comparison' : 'landuse-metric-grid'}>
         {areas.map((areaName) => {
@@ -945,11 +949,11 @@ function LanduseAnalysisPanel({ viewMode }) {
             <div className="landuse-area-card" key={areaName}>
               <span>{areaLabels[areaName]}</span>
               <div className="landuse-metric-row">
-                <small>zoning LUM</small>
+                <small>용도지역 기준 LUM</small>
                 <strong>{formatDecimal(zoning?.lum_index)}</strong>
               </div>
               <div className="landuse-metric-row">
-                <small>blockType LUM</small>
+                <small>blockType 기준 LUM</small>
                 <strong>{formatDecimal(blockType?.lum_index)}</strong>
               </div>
               <div className="landuse-metric-row">
